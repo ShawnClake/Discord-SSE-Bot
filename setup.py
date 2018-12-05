@@ -21,6 +21,7 @@ setup(
         "Operating System :: OS Independent",
     ),
     install_requires=[
-        'discord.py'
+        'discord.py',
+        'pymlconf'
     ],
 )
