@@ -2,6 +2,7 @@ from discord.ext import commands
 from urssediscord.commands.AssignRole import AssignRole
 from urssediscord.commands.StackOverflow import StackOverflow
 from urssediscord.events.imagebomb.ImageBomb import ImageBomb
+from urssediscord.commands.Fork import Fork
 
 from pymlconf import Root
 
@@ -30,6 +31,11 @@ async def role(ctx):
 @bot.command(pass_context=True)
 async def so(ctx):
     await StackOverflow.so(ctx)
+
+
+@bot.command(pass_context=True)
+async def fork(ctx):
+    await Fork.fork(ctx)
 
 
 @bot.event
