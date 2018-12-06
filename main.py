@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import random
+from urssediscord.commands.AssignRole import AssignRole
 
 from pymlconf import Root
 
@@ -19,6 +20,10 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
+
+@bot.command(pass_context=True)
+async def role(ctx):
+    await AssignRole.role(ctx)
 
 
 @bot.command()
