@@ -3,6 +3,7 @@ from discord.ext import commands
 import random
 from urssediscord.commands.AssignRole import AssignRole
 from urssediscord.commands.StackOverflow import StackOverflow
+from urssediscord.events.YasBomb import YasBomb
 
 from pymlconf import Root
 
@@ -28,6 +29,11 @@ async def role(ctx):
 @bot.command(pass_context=True)
 async def so(ctx):
     await StackOverflow.so(ctx)
+
+@bot.event
+async def on_message(message):
+    if "yasser" in message.content.lower() or "capstone" in message.content.lower() or "4yp" in message.content.lower():
+        await YasBomb.yas_bomb(message, bot)
 
 
 @bot.command()

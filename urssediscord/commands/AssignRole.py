@@ -3,7 +3,6 @@ from discord import Server, Member
 from discord.utils import get
 from discord.ext.commands import Bot
 
-
 class AssignRole:
 
     @staticmethod
@@ -35,7 +34,7 @@ class AssignRole:
 
             message += ". \nCommand use: /role [<role> <role> ...]"
             message += "\nTo remove a role, add an ! in front of the role name. ex. /role !4th-year"
-            await ctx.bot.send_message(ctx.message.channel, message)
+            await ctx.bot.say(message)
             return
 
         # Strings that the bot will reply with
@@ -88,4 +87,4 @@ class AssignRole:
         if non_existing_roles != "":
             message += "You thought " + non_existing_roles[:-2] + " role(s) existed? You were wrong! '/roles' for help\n"
 
-        await ctx.bot.send_message(ctx.message.channel, message)
+        await ctx.bot.say(message)
