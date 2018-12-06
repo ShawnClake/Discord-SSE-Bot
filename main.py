@@ -32,7 +32,11 @@ async def so(ctx):
 
 @bot.event
 async def on_message(message):
-    if "yasser" in message.content.lower() or "capstone" in message.content.lower() or "4yp" in message.content.lower():
+    if "yasser" in message.content.lower() or \
+       "capstone" in message.content.lower() or \
+       "4yp" in message.content.lower() or \
+       "fourth year project" in message.content.lower():
+
         await YasBomb.yas_bomb(message, bot)
 
 
