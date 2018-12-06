@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import random
 from urssediscord.commands.AssignRole import AssignRole
+from urssediscord.commands.StackOverflow import StackOverflow
 
 from pymlconf import Root
 
@@ -23,6 +24,10 @@ async def on_ready():
 @bot.command(pass_context=True)
 async def role(ctx):
     await AssignRole.role(ctx)
+
+@bot.command(pass_context=True)
+async def so(ctx):
+    await StackOverflow.so(ctx)
 
 
 @bot.command()
