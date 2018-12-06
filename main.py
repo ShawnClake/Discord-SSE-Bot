@@ -3,7 +3,7 @@ from discord.ext import commands
 import random
 from urssediscord.commands.AssignRole import AssignRole
 from urssediscord.commands.StackOverflow import StackOverflow
-from urssediscord.events.YasBomb import YasBomb
+from urssediscord.events.ImageBomb import ImageBomb
 
 from pymlconf import Root
 
@@ -32,12 +32,40 @@ async def so(ctx):
 
 @bot.event
 async def on_message(message):
-    if "yasser" in message.content.lower() or \
-       "capstone" in message.content.lower() or \
-       "4yp" in message.content.lower() or \
-       "fourth year project" in message.content.lower():
 
-        await YasBomb.yas_bomb(message, bot)
+    msg = message.content.lower()
+
+    yas_terms = ["yasser",
+                 "capstone",
+                 "4yp",
+                 "fourth year project",
+                 "networks",
+                 "testing",
+                 "test suite",
+                 "advisor",
+                 "project day"]
+
+    trev_terms = ["trevor",
+                  "lab"]
+
+    karim_terms = ["karim",
+                   "naqvi"]
+
+    craig_terms = ["linux",
+                   "craig",
+                   "gelowitz"]
+
+    if any(string in msg for string in yas_terms):
+        await ImageBomb.yas_bomb(message, bot)
+
+    if any(string in msg for string in trev_terms):
+        await ImageBomb.trev_bomb(message, bot)
+
+    if any(string in msg for string in karim_terms):
+        await ImageBomb.karim_bomb(message, bot)
+
+    if any(string in msg for string in craig_terms):
+        await ImageBomb.craig_bomb(message, bot)
 
 
 @bot.command()
