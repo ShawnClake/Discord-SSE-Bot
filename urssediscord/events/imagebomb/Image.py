@@ -1,4 +1,5 @@
 from discord import Embed
+import random
 
 
 class Image:
@@ -8,5 +9,9 @@ class Image:
         self.quote = quote
 
     def getImageEmbed(self):
-        return Embed().set_image(url=self.url)
+        if isinstance(self.url, list):
+            url = random.choice(self.url)
+        else:
+            url = self.url
+        return Embed().set_image(url=url)
 
