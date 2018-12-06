@@ -39,6 +39,9 @@ image_store.addImage(
 image_store.addImage(image=Image(url="https://i.gyazo.com/7fb42b920cc36728d939737b9333ed05.png", keywords=["wilson", "hiroshima", "league of legends", "noob"], quote="Wilson: \"Come on guyss\""))
 
 
+image_store.addImage(image=Image(url="https://i.gyazo.com/503dbbb4b721dc0a0e738ced8b3bef76.jpg", keywords=["tristan", "100%", "runescape", "mexican"]))
+
+
 class ImageBomb:
     @staticmethod
     async def bomb(message, bot):
