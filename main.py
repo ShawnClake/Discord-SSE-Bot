@@ -2,6 +2,7 @@ from discord.ext import commands
 from urssediscord.commands.AssignRole import AssignRole
 from urssediscord.commands.StackOverflow import StackOverflow
 from urssediscord.events.ImageBomb import ImageBomb
+import discord
 
 from pymlconf import Root
 
@@ -64,6 +65,8 @@ async def on_message(message):
 
     if any(string in msg for string in craig_terms):
         await ImageBomb.craig_bomb(message, bot)
+
+    await bot.process_commands(message)
 
 @bot.event
 async def on_member_join(user):
