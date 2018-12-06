@@ -51,6 +51,8 @@ async def on_message(message):
                    "naqvi"]
 
     craig_terms = ["linux",
+                   "microshaft",
+                   "microsoft",
                    "craig",
                    "gelowitz"]
 
