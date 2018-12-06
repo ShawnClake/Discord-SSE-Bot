@@ -12,6 +12,8 @@ class StackOverflow:
         else:
             # Get the last message in the channel
             bot: Bot = ctx.bot
-            async for message in bot.logs_from(ctx.message.channel, limit=2):
-                link = "https://stackoverflow.com/search?q=" + message.content.replace(' ', '+').replace('/', '+')
-            await ctx.bot.say(link)
+            async for message in bot.logs_from(ctx.message.channel, limit=25):
+                if message.content != "/so" and message.author.name != "UR SSE Bot":
+                    link = "https://stackoverflow.com/search?q=" + message.content.replace(' ', '+').replace('/', '+')
+                    await ctx.bot.say(message.author.mention + " " + link)
+                    return
