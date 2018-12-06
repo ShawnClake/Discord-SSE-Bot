@@ -1,5 +1,6 @@
 from discord.ext.commands import Bot
 
+
 class StackOverflow:
     @staticmethod
     async def so(ctx):
