@@ -25,7 +25,8 @@ class SSEBot(commands.Bot):
     async def on_message(self, message):
         if message.author.name != "UR SSE Bot":
             await ImageBomb.bomb(message)
-            await self.process_commands(message)
+            if message.author.name != "UR SSE Bot" or message.content == '/help':
+                await self.process_commands(message)
             # await self.bot.process_commands(message)
 
     async def on_member_join(self, user):
