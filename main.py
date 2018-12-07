@@ -5,13 +5,14 @@ from urssediscord.events.imagebomb.ImageBomb import ImageBomb
 from urssediscord.events.OnJoin import OnJoin
 from urssediscord.utilities.Roles import has_role
 
-
 from pymlconf import Root
 
 config = Root()
 config.load_file('config/app.yaml')
 
 
+# TODO: Create `SSE Insider` role if it does not exist during `on_ready`
+# TODO: Create `self-management` category if it does not exist during `on_ready`
 class SSEBot(commands.Bot):
     def __init__(self, command_prefix, formatter=None, description=None, pm_help=False, **options):
         super().__init__(command_prefix, formatter, description, pm_help, **options)
