@@ -21,7 +21,7 @@ setup(
         "Operating System :: OS Independent",
     ),
     install_requires=[
-        'discord.py',
-        'pymlconf'
+        'pymlconf',
+        'discord.py@git+https://github.com/Rapptz/discord.py@rewrite'
     ],
 )
