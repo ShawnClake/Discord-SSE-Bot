@@ -18,6 +18,12 @@ class SSEBot(commands.Bot):
         self.add_cog(SkillTreeCommands(self))
 
     async def on_ready(self):
+        # This command is commented out for now.
+        # When starting the bot, this will give any user without a text channel their own text channel.
+        #
+        # await OnJoin.on_ready(self)
+
+
         print('Logged in as')
         print(self.user.name)
         print(self.user.id)
