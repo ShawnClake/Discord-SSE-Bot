@@ -3,6 +3,7 @@ from urssediscord.commands.StandardCommands import StandardCommands
 from urssediscord.commands.SkillTreeCommands import SkillTreeCommands
 from urssediscord.events.imagebomb.ImageBomb import ImageBomb
 from urssediscord.events.OnJoin import OnJoin
+from urssediscord.utilities.Roles import has_role
 
 
 from pymlconf import Root
@@ -24,7 +25,7 @@ class SSEBot(commands.Bot):
         print('------')
 
     async def on_message(self, message):
-        if message.author.name != "UR SSE Bot":
+        if message.author.name != "UR SSE Bot" and has_role(message.author, 'SSE Insider'):
             await ImageBomb.bomb(message)
         if message.author.name != "UR SSE Bot" or message.content == '/help':
             await self.process_commands(message)
