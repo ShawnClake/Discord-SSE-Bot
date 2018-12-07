@@ -2,8 +2,9 @@ from discord.ext import commands
 from urssediscord.commands.StandardCommands import StandardCommands
 from urssediscord.commands.SkillTreeCommands import SkillTreeCommands
 from urssediscord.events.imagebomb.ImageBomb import ImageBomb
-from urssediscord.events.OnJoin import OnJoin
 from urssediscord.utilities.Roles import has_role
+from urssediscord.events.OnReady import on_ready
+from urssediscord.events.OnJoin import on_join
 
 from pymlconf import Root
 
@@ -23,7 +24,7 @@ class SSEBot(commands.Bot):
         # This command is commented out for now.
         # When starting the bot, this will give any user without a text channel their own text channel.
         #
-        # await OnJoin.on_ready(self)
+        # await on_ready(self)
 
 
         print('Logged in as')
@@ -38,7 +39,7 @@ class SSEBot(commands.Bot):
             await self.process_commands(message)
 
     async def on_member_join(self, user):
-        await OnJoin.on_join(user)
+        await on_join(user)
 
 
 client = SSEBot(command_prefix='/', description='UR SSE Discord Bot')
