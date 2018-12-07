@@ -3,6 +3,7 @@ from urssediscord.commands.AssignRole import AssignRole
 from urssediscord.commands.StackOverflow import StackOverflow
 from urssediscord.events.imagebomb.ImageBomb import ImageBomb
 from urssediscord.commands.Fork import Fork
+from urssediscord.utilities.DiscordAsciiPrinter import DiscordAsciiPrinter
 import discord
 
 from pymlconf import Root
@@ -10,54 +11,47 @@ from pymlconf import Root
 config = Root()
 config.load_file('config/app.yaml')
 
-description = '''An example bot to showcase the discord.ext.commands extension
-module.
-There are a number of utility commands being showcased here.'''
-bot = commands.Bot(command_prefix='/', description=description)
 
+class SSEBot(discord.Client):
+    def __init__(self, *, loop=None, **options):
+        super().__init__(loop=loop, **options)
+        description = 'UR SSE Discord Bot'
+        self.bot = commands.Bot(command_prefix='/', description=description)
 
-@bot.event
-async def on_ready():
-    print('Logged in as')
-    print(bot.user.name)
-    print(bot.user.id)
-    print('------')
+    async def on_ready(self):
+        print('Logged in as')
+        print(self.user.name)
+        print(self.user.id)
+        print('------')
 
+    async def on_message(self, message):
+        if message.author.name != "UR SSE Bot":
+            await ImageBomb.bomb(message)
+            await self.bot.process_commands(message)
 
-@bot.command(pass_context=True)
-async def role(ctx):
-    await AssignRole.role(ctx)
+    async def on_member_join(self, user):
+        user.send("Welcome to our discord server! Give yourself roles by typing /role in any text channel.")
 
+    @commands.command(pass_context=True)
+    async def role(self, ctx):
+        await AssignRole.role(ctx)
 
-@bot.command(pass_context=True)
-async def so(ctx):
-    await StackOverflow.so(ctx)
+    @commands.command(pass_context=True)
+    async def so(self, ctx):
+        await StackOverflow.so(ctx)
 
+    @commands.command(pass_context=True)
+    async def fork(self, ctx):
+        await Fork.fork(ctx)
 
-@bot.command(pass_context=True)
-async def fork(ctx):
-    await Fork.fork(ctx)
+    @commands.command(pass_context=True)
+    async def test(self, ctx):
+        dap = DiscordAsciiPrinter()
+        dap.addLine("         ___ skill 2")
+        dap.addLine("skill 1 /")
+        dap.addLine("        \\")
+        dap.addLine("         --- skill 3")
+        await ctx.bot.send_message(destination=ctx.message.channel, content=dap.getPrint())
 
-
-@bot.event
-async def on_message(message):
-    if message.author.name != "UR SSE Bot":
-        await ImageBomb.bomb(message)
-        await bot.process_commands(message)
-
-
-@bot.event
-async def on_member_join(user):
-    pass
-
-    # await bot.server.create_channel(server, user.name, type=discord.ChannelType.text)
-    #
-    # everyone_perms = discord.PermissionOverwrite(read_messages=False)
-    # my_perms = discord.PermissionOverwrite(read_messages=True)
-    #
-    # everyone = discord.ChannelPermissions(target=server.default_role, overwrite=everyone_perms)
-    #
-    # user.send("Welcome to our discord server! Give yourself roles by typing /role in any text channel.")
-
-
-bot.run(config.app.token)
+client = SSEBot()
+client.run(config.app.token)
