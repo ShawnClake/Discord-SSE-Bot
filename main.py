@@ -23,11 +23,11 @@ class SSEBot(commands.Bot):
         print('------')
 
     async def on_message(self, message):
+        print("`"+message.content+"`")
         if message.author.name != "UR SSE Bot":
             await ImageBomb.bomb(message)
         if message.author.name != "UR SSE Bot" or message.content == '/help':
             await self.process_commands(message)
-            # await self.bot.process_commands(message)
 
     async def on_member_join(self, user):
         user.send("Welcome to our discord server! Give yourself roles by typing /role in any text channel.")
