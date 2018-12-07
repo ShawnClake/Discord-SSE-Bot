@@ -10,6 +10,11 @@ class OnJoin:
             user: PermissionOverwrite(read_messages=True, send_messages=True)
         }
 
+        # Check if the user's channel already exists.
+        self_channel = [channel for channel in guild.channels if channel.topic == str(user.id)]
+        if self_channel:
+            return
+
         # Check to see if the channel category exists.
         categories = guild.categories
 
@@ -20,9 +25,10 @@ class OnJoin:
         else:
             self_management = await guild.create_category("Self-Management")
             channel = await guild.create_text_channel(str(user), overwrites=overwrites, category=self_management)
+        await channel.edit(topic=str(user.id))
 
-        await channel.send("Hello, " + user.mention + "! Welcome to our discord server! Give yourself roles by typing /role in any text channel.")
-        await channel.send("/help")
+        await channel.send("Hello, " + user.mention + "! Welcome to our discord server! Give yourself roles by typing /role.")
+        await channel.send("Get /help")
 
     @staticmethod
     async def on_ready(bot):
