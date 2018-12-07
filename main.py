@@ -24,7 +24,6 @@ class SSEBot(commands.Bot):
         print('------')
 
     async def on_message(self, message):
-        print("`"+message.content+"`")
         if message.author.name != "UR SSE Bot":
             await ImageBomb.bomb(message)
         if message.author.name != "UR SSE Bot" or message.content == '/help':
