@@ -12,8 +12,6 @@ config = Root()
 config.load_file('config/app.yaml')
 
 
-# TODO: Create `SSE Insider` role if it does not exist during `on_ready`
-# TODO: Create `self-management` category if it does not exist during `on_ready`
 class SSEBot(commands.Bot):
     def __init__(self, command_prefix, formatter=None, description=None, pm_help=False, **options):
         super().__init__(command_prefix, formatter, description, pm_help, **options)
@@ -24,7 +22,7 @@ class SSEBot(commands.Bot):
         # This command is commented out for now.
         # When starting the bot, this will give any user without a text channel their own text channel.
         #
-        # await on_ready(self)
+        await on_ready(self)
 
 
         print('Logged in as')
