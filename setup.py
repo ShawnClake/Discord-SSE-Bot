@@ -22,6 +22,7 @@ setup(
     ),
     install_requires=[
         'discord.py',
-        'pymlconf'
+        'pymlconf',
+        'git+https://github.com/Rapptz/discord.py@rewrite#egg=discord.py[voice]'
     ],
 )

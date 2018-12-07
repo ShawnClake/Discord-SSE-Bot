@@ -1,5 +1,5 @@
 from discord.ext.commands.context import Context
-from discord import Server, Member
+from discord import Member, Guild
 from discord.utils import get
 from discord.ext.commands import Bot
 
@@ -9,21 +9,21 @@ class AssignRole:
     async def role(ctx: Context):
         # Get the user who sent the command
         user: Member = ctx.message.author
-        server: Server = ctx.message.server
+        guild: Guild = ctx.message.guild
         bot: Bot = ctx.bot
 
         # Parse the sent in command and split the command in whitespace.
         arguments = ctx.message.content.split(' ')[1:]
 
         # Get the UR SSE Bot role
-        bot_role = get(server.roles, name="UR SSE Bot")
+        bot_role = get(guild.roles, name="UR SSE Bot")
 
         # Allow users to assign themselves to any role under the bot.
-        roles = [role for role in server.roles if role < bot_role and "@" not in role.name]
+        roles = [role for role in guild.roles if role < bot_role and "@" not in role.name]
 
         # If no arguments are passed, return the help information.
         if not arguments:
-            # Send information about all possible server roles.
+            # Send information about all possible guild roles.
             message = "You have not specified a role.\nThe possible roles are: "
 
             for role in roles:
@@ -34,7 +34,7 @@ class AssignRole:
 
             message += ". \nCommand use: /role [<role> <role> ...]"
             message += "\nTo remove a role, add an ! in front of the role name. ex. /role !4th-year"
-            await ctx.bot.say(message)
+            await ctx.message.channel.send(message)
             return
 
         # Strings that the bot will reply with
@@ -53,18 +53,18 @@ class AssignRole:
                 remove = True
 
             # Check if the role exists
-            role = get(server.roles, name=arg.replace('-', ' '))
+            role = get(guild.roles, name=arg.replace('-', ' '))
 
             # if the role exists, check if the user has permission to assign the role.
             if role:
                 # Check if the role is in the potential role list.
                 if role in roles:
                     if remove:
-                        await bot.remove_roles(user, role)
+                        await user.remove_roles(role)
                         removed_roles += str(arg) + ", "
                     else:
                         # The role matches a discord role, assign the user the role.
-                        await bot.add_roles(user, role)
+                        await user.add_roles(role)
                         added_roles += str(arg) + ", "
                 else:
                     # The role cannot be assigned.
@@ -87,4 +87,4 @@ class AssignRole:
         if non_existing_roles != "":
             message += "You thought " + non_existing_roles[:-2] + " role(s) existed? You were wrong! '/roles' for help\n"
 
-        await ctx.bot.say(message)
+        await ctx.message.channel.send(message)

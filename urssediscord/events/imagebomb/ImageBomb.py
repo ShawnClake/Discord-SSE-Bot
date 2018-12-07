@@ -52,9 +52,9 @@ image_store.addImage(
 
 class ImageBomb:
     @staticmethod
-    async def bomb(message, bot):
+    async def bomb(message):
         images = image_store.getImagesFromKeywords(message.content.lower())
         for image in images:
             embed = image.getImageEmbed()
-            await bot.send_message(message.channel, embed=embed,
+            await message.channel.send(embed=embed,
                                    content=image.quote)  # Potentially need to await here, but doubtful
