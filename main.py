@@ -1,9 +1,8 @@
 from discord.ext import commands
-from urssediscord.commands.AssignRole import AssignRole
-from urssediscord.commands.StackOverflow import StackOverflow
+from urssediscord.commands.StandardCommands import StandardCommands
+from urssediscord.commands.SkillTreeCommands import SkillTreeCommands
 from urssediscord.events.imagebomb.ImageBomb import ImageBomb
-from urssediscord.commands.Fork import Fork
-from urssediscord.utilities.DiscordAsciiPrinter import DiscordAsciiPrinter
+
 
 from pymlconf import Root
 
@@ -15,6 +14,7 @@ class SSEBot(commands.Bot):
     def __init__(self, command_prefix, formatter=None, description=None, pm_help=False, **options):
         super().__init__(command_prefix, formatter, description, pm_help, **options)
         self.add_cog(StandardCommands(self))
+        self.add_cog(SkillTreeCommands(self))
 
     async def on_ready(self):
         print('Logged in as')
@@ -30,32 +30,6 @@ class SSEBot(commands.Bot):
 
     async def on_member_join(self, user):
         user.send("Welcome to our discord server! Give yourself roles by typing /role in any text channel.")
-
-
-class StandardCommands:
-    def __init__(self, bot):
-        self.bot = bot
-
-    @commands.command()
-    async def role(self, ctx):
-        await AssignRole.role(ctx)
-
-    @commands.command()
-    async def so(self, ctx):
-        await StackOverflow.so(ctx)
-
-    @commands.command()
-    async def fork(self, ctx):
-        await Fork.fork(ctx)
-
-    @commands.command()
-    async def test(self, ctx):
-        dap = DiscordAsciiPrinter()
-        dap.addLine("         ___ skill 2")
-        dap.addLine("skill 1 /")
-        dap.addLine("        \\")
-        dap.addLine("         --- skill 3")
-        await ctx.message.channel.send(content=dap.getPrint())
 
 
 client = SSEBot(command_prefix='/', description='UR SSE Discord Bot')
