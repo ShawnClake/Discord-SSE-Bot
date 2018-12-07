@@ -16,10 +16,10 @@ class OnJoin:
         self_management = [channel for channel in categories if channel.name == "Self-Management"]
 
         if self_management:
-            channel = await guild.create_text_channel(str(user) + str(user.id), overwrites=overwrites, category=self_management[0])
+            channel = await guild.create_text_channel(str(user), overwrites=overwrites, category=self_management[0])
         else:
             self_management = await guild.create_category("Self-Management")
-            channel = await guild.create_text_channel(str(user) + str(user.id), overwrites=overwrites, category=self_management)
+            channel = await guild.create_text_channel(str(user), overwrites=overwrites, category=self_management)
 
         await channel.send("Hello, " + user.mention + "! Welcome to our discord server! Give yourself roles by typing /role in any text channel.")
         await channel.send("/help")
@@ -51,6 +51,5 @@ class OnJoin:
                 }
 
                 # Create the private channel for the user
-                # Appending id to the name to ensure unique as creating a text channel with special characters doesn't work
-                await guild.create_text_channel(str(member) + str(member.id), overwrites=overwrites,
+                await guild.create_text_channel(str(member), overwrites=overwrites,
                                                           category=self_management)
