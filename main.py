@@ -2,6 +2,7 @@ from discord.ext import commands
 from urssediscord.commands.StandardCommands import StandardCommands
 from urssediscord.commands.SkillTreeCommands import SkillTreeCommands
 from urssediscord.events.imagebomb.ImageBomb import ImageBomb
+from urssediscord.events.OnJoin import OnJoin
 
 
 from pymlconf import Root
@@ -30,7 +31,7 @@ class SSEBot(commands.Bot):
             await self.process_commands(message)
 
     async def on_member_join(self, user):
-        user.send("Welcome to our discord server! Give yourself roles by typing /role in any text channel.")
+        await OnJoin.on_join(user)
 
 
 client = SSEBot(command_prefix='/', description='UR SSE Discord Bot')
